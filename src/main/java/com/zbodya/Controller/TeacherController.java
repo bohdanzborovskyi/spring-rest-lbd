@@ -23,9 +23,9 @@ public class TeacherController
 	TeacherService teacherServ;
 	
 	@PostMapping(value = "/add", consumes = "application/json")
-	public void addTeacher(@RequestBody Teacher teacher) 
+	public Teacher addTeacher(@RequestBody Teacher teacher) 
 	{
-		teacherServ.addTeacher(teacher);
+		return teacherServ.addTeacher(teacher);
 	}
 	
 	@DeleteMapping("/delete/{id}")
@@ -53,7 +53,7 @@ public class TeacherController
 	}
 	
 	@GetMapping("/")
-	public List<Teacher> getTeacher() 
+	public List<Teacher> getTeachers() 
 	{
 		return teacherServ.getAllTeachers();
 	}

@@ -34,9 +34,9 @@ public class TeacherService
 		return teacherRepo.findAll();
 	}
 	
-	public void addTeacher(Teacher teacher) 
+	public Teacher addTeacher(Teacher teacher) 
 	{
-		teacherRepo.save(teacher);
+		return teacherRepo.save(teacher);
 	}
 	
 	public void deleteTeacherById(Long id) 

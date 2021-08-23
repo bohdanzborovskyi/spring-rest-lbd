@@ -1,16 +1,9 @@
 package com.zbodya;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.util.List;
-
-import javax.print.attribute.standard.Media;
-
-import org.assertj.core.util.Arrays;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zbodya.Controller.StudentController;
@@ -125,9 +116,6 @@ public class StudentControllerTest
 		when(studServ.editStudent(Mockito.anyString(), Mockito.anyInt(), Mockito.anyLong())).thenReturn(new Student("Jack", "Sparrow", 33));
 		mvc.perform(MockMvcRequestBuilders
 				.put("http://localhost:8080/api/students/edit?last_name=Jack&age=44&id=2"))
-//				.param("last_name", "Jack")
-//				.param("age", "33")
-//				.param("id","1"))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
@@ -136,8 +124,8 @@ public class StudentControllerTest
 	{
 		try {
 			return new ObjectMapper().writeValueAsString(obj);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
+		} catch (JsonProcessingException e) 
+		{		
 			throw new RuntimeException(e);
 		}
 	}
