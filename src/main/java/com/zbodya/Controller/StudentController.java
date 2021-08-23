@@ -56,7 +56,6 @@ public class StudentController
 	public Student addNewStudent(@RequestBody Student student) 
 	{
 		return studentServ.addStudent(student);
-	//	return new ResponseEntity<Student>(studentServ.addStudent(student),HttpStatus.CREATED);
 	}
 	
 	
