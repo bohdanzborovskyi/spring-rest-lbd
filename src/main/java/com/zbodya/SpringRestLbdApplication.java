@@ -32,7 +32,7 @@ public class SpringRestLbdApplication {
 		teacherServ.getAllTeachers().forEach(t->System.out.println(t.getFirst_name() + " " + t.getLast_name() + " " + t.getId() + " " + t.getSubject()));
 		teacherServ.getStudentsByTeacherId(11L).forEach(s->System.out.println(s.getLast_name() + " " + s.getSubjects()));
 		teacherServ.deleteStudentFromClassByTeacherId(9L,11L);
-		System.out.println(studServ.getStudentById(9L).getSubjects());
+	//	System.out.println(studServ.getStudentById(9L).getSubjects());
 
 	}
 	
