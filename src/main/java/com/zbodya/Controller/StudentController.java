@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zbodya.Model.Student;
@@ -28,34 +27,34 @@ public class StudentController
 	StudentService studentServ;
 	
 	@GetMapping("/")
-	public List<Student>getAllStudents()
+	public ResponseEntity<List<Student>>getAllStudents()
 	{
-		return studentServ.getAllStudents();
+		return new ResponseEntity<List<Student>>(studentServ.getAllStudents(),HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public Student getStudentById(@PathVariable Long id) 
+	public ResponseEntity<Student> getStudentById(@PathVariable Long id) 
 	{
-		return studentServ.getStudentById(id);
+		return new ResponseEntity<Student>(studentServ.getStudentById(id),HttpStatus.OK);
 	}
 	
 	@PutMapping("/edit")
-	public Student editStudent(@RequestParam("last_name") String last_name, @RequestParam("age") int age, @RequestParam("id") Long id) 
+	public ResponseEntity<Student> editStudent(@RequestParam("last_name") String last_name, @RequestParam("age") int age, @RequestParam("id") Long id) 
 	{
-		return studentServ.editStudent(last_name, age, id);
+		return new ResponseEntity<Student>(studentServ.editStudent(last_name, age, id),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public String deleteStudent(@PathVariable Long id) 
+	public ResponseEntity<String> deleteStudent(@PathVariable Long id) 
 	{
 		studentServ.deleteStudent(id);
-		return "Student was deleted";
+		return new ResponseEntity<String>("Student was deleted",HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/add", consumes = "application/json")
-	public Student addNewStudent(@RequestBody Student student) 
+	public ResponseEntity<Student> addNewStudent(@RequestBody Student student) 
 	{
-		return studentServ.addStudent(student);
+		return new ResponseEntity<Student>(studentServ.addStudent(student),HttpStatus.OK);
 	}
 	
 	

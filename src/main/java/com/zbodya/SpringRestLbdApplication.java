@@ -1,14 +1,22 @@
 package com.zbodya;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
+import com.zbodya.Service.AuthorizationService;
 import com.zbodya.Service.StudentService;
 import com.zbodya.Service.TeacherService;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@ServletComponentScan
 @SpringBootApplication
 public class SpringRestLbdApplication {
 
@@ -17,6 +25,9 @@ public class SpringRestLbdApplication {
 	
 	@Autowired
 	TeacherService teacherServ;
+	
+	@Autowired
+	AuthorizationService authServ;
 	
 	
 	public static void main(String[] args) {
@@ -33,6 +44,18 @@ public class SpringRestLbdApplication {
 		teacherServ.getStudentsByTeacherId(11L).forEach(s->System.out.println(s.getLast_name() + " " + s.getSubjects()));
 		teacherServ.deleteStudentFromClassByTeacherId(9L,11L);
 	//	System.out.println(studServ.getStudentById(9L).getSubjects());
+		try 
+		{
+			System.out.println("FALSE: " + authServ.isAuthorized(new URI("api/teachers").toString(), "STUDENT_ROLE"));
+			System.out.println("TRUE: " + authServ.isAuthorized(new URI("api/teachers").toString(), "TEACHER_ROLE"));
+			System.out.println("FALSE: " + authServ.isAuthorized(new URI("api/teachers").toString(), "ROLE"));
+			System.out.println("TRUE: " + authServ.isAuthorized(new URI("api/students").toString(), "STUDENT_ROLE"));
+			System.out.println("TRUE: " + authServ.isAuthorized(new URI("api/students").toString(), "TEACHER_ROLE"));
+			System.out.println("FALSE: " + authServ.isAuthorized(new URI("api/students").toString(), "ROLE"));
+		} catch (URISyntaxException e) 
+		{
+			e.printStackTrace();
+		}
 
 	}
 	
